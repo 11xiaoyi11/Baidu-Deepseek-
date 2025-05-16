@@ -11,7 +11,7 @@ prompt_path = "./prompts/prompt_no_history.txt"
 
 @app.route("/")
 def index():
-    return render_template("index1.html")
+    return render_template("index.html")
 
 @socketio.on('user_message')
 def handle_message(data):
