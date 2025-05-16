@@ -4,10 +4,12 @@ from search import get_search_results
 from chat_api import generate_answer, generate_prompt
 import eventlet
 import eventlet.wsgi
+import os
 
 app = Flask(__name__)
 socketio = SocketIO(app, cors_allowed_origins="*", ping_timeout=120, ping_interval=25)
-prompt_path = "./prompts/prompt_no_history.txt"
+current_dir = os.path.dirname(os.path.abspath(__file__))
+prompt_path = os.path.join(current_dir, "prompts/prompt_no_history.txt")
 
 @app.route("/")
 def index():
