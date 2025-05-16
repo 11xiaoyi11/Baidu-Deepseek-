@@ -19,7 +19,7 @@
 ```
 search-augmented-qa/
 ├── app.py                 # Flask 主程序，处理搜索与大模型交互
-├── search.py        # 百度搜索调用与结果解析
+├── search.py        # 百度搜索调用与结果解析(爬虫）
 ├── chat_api.py             # Deepseek API 接口封装
 ├── templates/
 │   └── index.html         # 聊天界面（Web前端）
@@ -75,7 +75,7 @@ http://localhost:5000
 | 模块        | 技术栈 / 服务          |
 | --------- | ----------------- |
 | 后端服务      | Flask + Socket.IO |
-| 搜索引擎      | 百度搜索（requests 调用） |
+| 搜索爬虫      | 百度搜索（requests 调用） |
 | 大模型接口     | Deepseek Chat API |
 | Prompt 构造 | 基于搜索摘要的模板构建       |
 | 前端界面      | HTML + JS + CSS   |
