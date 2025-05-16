@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>Deepseek 搜索对话系统</title>
+    <style>
+        body {
+            font-family: "Helvetica Neue", sans-serif;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            margin: 20px 0;
+            color: #333;
+        }
+
+        .chat-container {
+            width: 80%;
+            max-width: 800px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .chat-box {
+            height: 600px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 8px;
+            background: #fafafa;
+            margin-bottom: 10px;
+        }
+
+        .message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 8px;
+            line-height: 1.5;
+        }
+
+        .user {
+            background: #d0eaff;
+            align-self: flex-end;
+        }
+
+        .bot {
+            background: #e8f5e9;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #search-results {
+            margin-top: 15px;
+            font-size: 0.95em;
+            color: #333;
+            background: #f0f0f0;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        #results-list li {
+            margin-bottom: 8px;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+</head>
+<body>
+    <h1>🔍 搜索对话系统（基于 Deepseek）</h1>
+    <div class="chat-container">
+        <div class="chat-box" id="chat-box"></div>
+        <div class="input-row">
+            <input type="text" id="message" placeholder="请输入问题..." />
+            <button onclick="sendMessage()">发送</button>
+        </div>
+        <div id="search-results"></div>
+    </div>
+
+    <script>
+        const socket = io();
+
+        function sendMessage() {
+            const msgInput = document.getElementById("message");
+            const msg = msgInput.value.trim();
+            if (!msg) return;
+
+            const chatBox = document.getElementById("chat-box");
+            chatBox.innerHTML += `<div class="message user"><strong>你：</strong> ${msg}</div>`;
+            msgInput.value = "";
+
+            document.getElementById("search-results").innerHTML =
+                "<strong>🔍 正在搜索中...</strong><ul id='results-list'></ul>";
+
+            socket.emit("user_message", { message: msg });
+        }
+
+        socket.on("search_result", data => {
+            const list = document.getElementById("results-list");
+            const itemHTML = `<li><strong>${data.title}</strong><br><strong>摘要：</strong>${data.summary}</li>`;
+            list.innerHTML += itemHTML;
+        });
+
+        socket.on("search_done", () => {
+            document.getElementById("search-results").innerHTML =
+                "<strong>🤖 正在生成回答，请稍候...</strong>";
+        });
+
+        socket.on("final_answer", data => {
+            const chatBox = document.getElementById("chat-box");
+            const htmlAnswer = marked.parse(data.answer);
+            chatBox.innerHTML += `<div class="message bot"><strong>助手：</strong> ${htmlAnswer}</div>`;
+            chatBox.scrollTop = chatBox.scrollHeight;
+            document.getElementById("search-results").innerHTML = "<strong>✅ 问答完成！</strong>";
+        });
+    </script>
+</body>
+</html>
