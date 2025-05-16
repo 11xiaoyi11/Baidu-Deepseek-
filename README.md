@@ -31,6 +31,21 @@ search-augmented-qa/
 
 ## 🚀 项目运行
 
+### 克隆仓库
+
+```bash
+git clone https://github.com/11xiaoyi11/Baidu-Deepseek_SearchQA.git
+cd Baidu-Deepseek_SearchQA
+```
+
+### 使用虚拟环境
+
+```bash
+# 使用 conda（推荐）
+conda create -n SearchQA python=3.10 -y
+conda activate SearchQA
+```
+
 ### 环境依赖
 
 ```bash
@@ -48,6 +63,18 @@ python app.py
 ```
 http://localhost:5000
 ```
+
+---
+
+
+## 🔑 配置
+
+1. **设置 AI API 密钥**：  
+   这里课程要求使用deepseek，我使用的是 [腾讯云](https://cloud.tencent.com/document/product/1772/115969)（因为现在免费）  
+   在 chat_api.py 修改 ([here](https://github.com/11xiaoyi11/Baidu-Deepseek_SearchQA/blob/main/chat_api.py#L12))：  
+   ```
+   api_key= "Your_API_KEY"
+   ```
 
 ---
 
