@@ -80,20 +80,20 @@ http://localhost:5000
 
 ## 🧠 系统流程图
 
-1. 用户输入问题 →
-2. 使用百度搜索相关信息摘要 →
-3. 构造带上下文的 Prompt →
-4. 提交至 Deepseek LLM →
-5. 返回模型生成的答案 →
-6. 显示在 Web 聊天窗口中
+![](https://github.com/11xiaoyi11/Baidu-Deepseek_SearchQA/blob/main/assets/image0.png)
 
 ---
 
 ## 📌 示例问答
 
-**Q:** 李白和杜甫是什么关系？
-**🔍 Search Extracted:** 李白与杜甫是唐代著名诗人，两人互有唱和。
-**🤖 Answer:** 李白和杜甫是唐代的著名诗人，他们在诗歌创作上互相交流、惺惺相惜。
+### 问答界面
+![](https://github.com/11xiaoyi11/Baidu-Deepseek_SearchQA/blob/main/assets/image1.png)
+
+### 搜索过程
+![](https://github.com/11xiaoyi11/Baidu-Deepseek_SearchQA/blob/main/assets/image2.png)
+
+### 问答显示
+![](https://github.com/11xiaoyi11/Baidu-Deepseek_SearchQA/blob/main/assets/image3.png)
 
 ---
 
