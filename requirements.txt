@@ -1,7 +1,8 @@
 browser-cookie3
 bs4
 flask
+flask_socketio
 openai
 eventlet
-eventlet.wsgi
+requests
 selenium
